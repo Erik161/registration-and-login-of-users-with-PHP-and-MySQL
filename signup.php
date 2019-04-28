@@ -3,11 +3,11 @@ require 'database.php';
 
     $message='';
 
-  if(!empty($_POST['email'] && !empty($_POST['password']) )) {
+  if(!empty($_POST['email']) && !empty($_POST['password']) ) {
     $sql ="INSERT INTO users (email , password) VALUES (:email, :password)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':email', $_POST['email']);
-    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT); //EL password_hash sirve para cifrar la contra
 
     $stmt->bindParam(':password', $password);
 
@@ -32,13 +32,13 @@ require 'database.php';
 <?php require 'partials/header.php'?>
 
 <?php if (!empty($message)):?>
-    <p><?php $message?></p>
+    <p><?= $message?></p>
 <?php endif; ?>
 
     <h1>SignUp</h1>
     <span>or <a href="login.php">Login</a></span>
 
-    <form action="signuo.php" method="post" >
+    <form action="signup.php" method="post" >
         <input type="text" name="email" placeholder="Enter your email" >
         <input type="password" name="password" placeholder="Enter your password" >
         <input type="password" name="confirm-password" placeholder="Confirm your password" >
